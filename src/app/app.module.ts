@@ -2,31 +2,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { ViewComponent } from './modules/list/view/view.component';
-import { ListComponent } from './modules/list/list.component';
-import { BewListComponent } from './modules/bew-list/bew-list.component';
-import { NewListComponent } from './modules/new-list/new-list.component';
-import { TasksComponent } from './modules/list/components/tasks/tasks.component';
-import { FooterComponent } from './core/footer/footer.component';
-import { HeaderComponent } from './core/header/header.component';
-import { MenuComponent } from './core/menu/menu.component';
+import { AppRoutingModule } from './app.routing.module';
+import { CoreModule } from './core/core.module';
+import { NewListModule } from './modules/new-list/new-list.module';
+import { ListModule } from './modules/list/list.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ViewComponent,
-    ListComponent,
-    BewListComponent,
-    NewListComponent,
-    TasksComponent,
-    FooterComponent,
-    HeaderComponent,
-    MenuComponent
-  ],
+  declarations: [AppComponent],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    CoreModule,
+    NewListModule,
+    ListModule,
+    NgbModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

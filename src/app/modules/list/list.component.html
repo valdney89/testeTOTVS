@@ -1,1 +1,27 @@
-<p>list works!</p>
+<div class="container">
+  <section id="list-tasks">
+    <h3 class="mb-5">Tasks</h3>
+    <article *ngFor="let task of listTasks">
+      <todo-tasks
+        [title]="task?.title"
+        [description]="task?.description"
+      ></todo-tasks>
+    </article>
+    <article *ngIf="!listTasks">
+      <p>Opa, você ainda não cadastrou nenhuma Task nessa lista :(</p>
+    </article>
+    <div class="card border-secondary w-100 mt-3">
+      <div class="card-body">
+        <p class="card-text text-center" (click)="addNewTask()">
+          <fa-icon class="mr-1" [icon]="faPlusCircle"></fa-icon> Adicionar nova
+          Task
+        </p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<todo-modal-new-tasks
+  [modalConfig]="modalConfig"
+  [listId]="listId"
+></todo-modal-new-tasks>
