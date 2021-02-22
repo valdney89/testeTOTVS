@@ -1,0 +1,50 @@
+@import "mixins";
+
+body {
+  background-color: $color_bg;
+  color: $color_texto;
+}
+
+main {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.site-wrapper {
+  align-items: stretch;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.main-content {
+  flex: 1;
+}
+
+.bg-principal {
+  @include cor-principal;
+}
+
+.btn-principal {
+  background-color: $color_200;
+  color: #fff;
+  &:hover {
+    background-color: $color_300;
+    color: #fff;
+  }
+}
+
+.btn-secundario-outline {
+  background-color: transparent;
+  color: #888bbf;
+  &:hover {
+    background-color: #888bbf;
+    color: #fff;
+  }
+}

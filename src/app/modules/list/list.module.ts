@@ -1,3 +1,4 @@
+import { InputErrorModule } from './../../shared/components/input-error/input-error.module';
 import { ModalEditTasksComponent } from './components/modal-edit-tasks/modal-edit-tasks.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -28,6 +29,7 @@ import { ModalService } from './../../shared/components/modal/service/modal.serv
     FormsModule,
     NgbModule,
     FontAwesomeModule,
+    InputErrorModule,
   ],
   providers: [ListService, ModalService],
 })

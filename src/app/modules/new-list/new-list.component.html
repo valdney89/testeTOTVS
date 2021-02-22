@@ -1,8 +1,8 @@
-<section class="container">
+<section class="container mt-5">
   <form [formGroup]="newListForm" (submit)="save()">
-    <legend>Nova Lista</legend>
+    <legend tabindex="0">Nova Lista</legend>
     <div class="mb-3">
-      <label for="title" class="form-label">Nome *</label>
+      <label tabindex="0" for="title" class="form-label">Nome *</label>
       <input
         formControlName="title"
         type="text"
@@ -21,7 +21,7 @@
     </div>
     <button
       type="submit"
-      class="btn btn-primary float-right"
+      class="btn btn-principal float-right"
       [disabled]="newListForm.invalid"
     >
       Adicionar Lista

@@ -1,7 +1,7 @@
 <div class="w-100 mb-2 mt-4 text-right">
   <button
     type="button"
-    class="btn btn-outline"
+    class="btn btn-secundario-outline"
     (click)="collapse.toggle()"
     [attr.aria-expanded]="!isCollapsed"
     aria-controls="tasksDone"
@@ -12,10 +12,7 @@
 
 <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
   <ng-container *ngFor="let task of listTasks">
-    <div
-      *ngIf="task.isDone === true"
-      class="card text-white bg-dark w-100 mb-2"
-    >
+    <div *ngIf="task.isDone === true" class="card w-100 mb-2">
       <div
         class="card-body d-flex flex-row justify-content-between align-items-center"
       >
@@ -52,50 +49,3 @@
     </div>
   </ng-container>
 </div>
-
-<!-- <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-  <ngb-panel title="Tarefas Concluídas">
-    <ng-template ngbPanelContent>
-      <div *ngFor="let task of listTasks">
-        <div
-          *ngIf="task.isDone === true"
-          class="card text-white bg-dark w-100 mb-2"
-        >
-          <div
-            class="card-body d-flex flex-row justify-content-between align-items-center"
-          >
-            <div class="card-body__title&description">
-              <h5 class="card-title">{{ task.title }}</h5>
-              <p class="card-text">
-                {{ task.description }}
-              </p>
-            </div>
-            <div class="card-body__actions">
-              <div ngbDropdown class="d-inline-block">
-                <button
-                  id="dropdownTasks"
-                  ngbDropdownToggle
-                  class="btn btn-outline-primary"
-                >
-                  <fa-icon [icon]="faEllipsisV"></fa-icon>
-                </button>
-                <div
-                  class="dropdown-menu dropdown-menu-right"
-                  ngbDropdownMenu
-                  aria-labelledby="dropdownTasks"
-                >
-                  <button ngbDropdownItem (click)="clickVoltarTask(task)">
-                    Voltar Tarefa
-                  </button>
-                  <button ngbDropdownItem (click)="excluirTask(task)">
-                    Excluir
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-  </ngb-panel>
-</ngb-accordion> -->

@@ -1,10 +1,13 @@
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
-import { faTasks, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTasks,
+  faPlusCircle,
+  faHome,
+} from '@fortawesome/free-solid-svg-icons';
 import { List } from './../../modules/list/model/list';
 import { ListService } from './../../modules/list/services/list.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'todo-sidebar',
@@ -16,31 +19,18 @@ export class SidebarComponent implements OnInit {
   qtdListItens: number = 0;
   faTasks = faTasks;
   faPlusCircle = faPlusCircle;
+  faHome = faHome;
+  list$: Observable<any>;
+  public isCollapsed = true;
 
-  teste: Observable<any>;
-
-  constructor(
-    private listService: ListService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  constructor(private listService: ListService) {}
 
   ngOnInit(): void {
-    this.teste = this.listService.getList();
-    this.teste.subscribe((sucess) => {
-      console.log(sucess);
+    //obtem todas as listas do banco para popular menu
+    this.list$ = this.listService.getList();
+    this.list$.subscribe((sucess) => {
       this.qtdListItens = sucess.length;
       this.listItens = sucess;
     });
-    console.log(this.activatedRoute);
-
-    // this.activatedRoute.params.subscribe((params) => {
-    //   console.log(params);
-    //   this.listItens = this.activatedRoute.snapshot.data['lists'];
-    //   this.qtdListItens = this.listItens.length;
-    // });
-    // this.listService.getList().subscribe((sucess) => {
-    //   this.qtdListItens = sucess.length;
-    //   this.listItens = sucess;
-    // });
   }
 }

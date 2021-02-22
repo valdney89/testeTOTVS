@@ -1,0 +1,6 @@
+@import "variables";
+
+@mixin cor-principal {
+  background-color: $color_200;
+  color: #d2d0f7;
+}

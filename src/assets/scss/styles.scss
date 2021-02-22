@@ -1,18 +1,6 @@
 @import "./_variables";
 @import "./_mixins";
+@import "./core";
+@import "./custom";
 
 @import "~bootstrap/dist/css/bootstrap.min.css";
-
-#list-tasks .accordion > .card {
-  overflow: initial;
-}
-
-.site-wrapper {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-.main-content {
-  flex: 1;
-}

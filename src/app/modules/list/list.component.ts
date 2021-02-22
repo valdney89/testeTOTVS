@@ -33,6 +33,7 @@ export class ListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    //resolver criado para pegar as tarefas da lista antes de iniciar o componente
     this.activatedRoute.params.subscribe((params) => {
       this.listId = params.id;
       this.recebeListId(this.listId);
@@ -40,11 +41,13 @@ export class ListComponent implements OnInit {
     });
   }
 
+  //verifica se existe ou não itens concluídos
   public hasTasksDone() {
     const findTaskDone = this.listTasks?.find((val) => val.isDone === true);
     return findTaskDone ? true : false;
   }
 
+  //verifica se todas as tarefas criadas estão concluídas
   public isAllDone() {
     const value = this.listTasks
       .map(function (e) {
@@ -59,16 +62,19 @@ export class ListComponent implements OnInit {
     this.modalConfig.modalTitle = title;
   }
 
+  //abre a modal para cadastro de uma nova tarefa
   public addNewTask() {
     this.configuraModal('Adicionar Task');
     this.modalService.getModalEmitter();
   }
 
+  //abre modal para edição da tarefa selecionada
   public editarTask(taskId) {
     this.configuraModal('Editar Task');
     this.modalService.getEditModalEmitter(taskId);
   }
 
+  //muda o status da tarefa para concluída ou não concluída
   public changeStatusTask(event) {
     this.tasksService.updateTasks(event, event.id).subscribe(
       (res) => {
@@ -78,6 +84,8 @@ export class ListComponent implements OnInit {
     );
   }
 
+  //Exclui a tarefa selecionada
+  //TODO: aparecer feedback para confirmar exclusão
   public excluirTask(event) {
     this.tasksService.removeTasks(event.id).subscribe(
       (res) => {
@@ -89,6 +97,8 @@ export class ListComponent implements OnInit {
     );
   }
 
+  //Exclui a Lista selecionada e suas tarefas em cascata
+  //TODO: aparecer feedback para confirmar exclusão
   public excluirList() {
     this.listService.removeList(this.listId).subscribe(
       (res) => {
@@ -101,6 +111,8 @@ export class ListComponent implements OnInit {
     );
   }
 
+  /* Busca no banco a lista pelo ID informado,
+  se a tarefa não existir, redireciona para o component not found */
   private recebeListId(id: number) {
     this.listService.getListById(id).subscribe(
       (list) => {

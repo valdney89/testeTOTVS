@@ -1,18 +1,27 @@
 <section id="list-tasks" class="container">
-  <div class="d-flex flex-row justify-content-between align-items-center mb-5">
-    <h2>Lista: {{ list?.title }}</h2>
-    <button class="btn btn-outline-secondary" (click)="excluirList()">
+  <div
+    class="d-flex flex-row justify-content-between align-items-center mb-5 mt-5"
+  >
+    <h2 tabindex="0">Lista: {{ list?.title }}</h2>
+    <button class="btn btn-secundario-outline" (click)="excluirList()">
       <fa-icon class="mr-1" [icon]="faTrash"></fa-icon> Apagar Lista
     </button>
   </div>
 
-  <h3 class="mb-3">Tasks</h3>
+  <h3 class="mb-3" tabindex="0">Tasks</h3>
+
   <article *ngIf="listTasks?.length === 0">
-    <p>Opa, você ainda não cadastrou nenhuma Task nessa lista :(</p>
+    <p tabindex="0">
+      Opa, você ainda não cadastrou nenhuma Task nessa lista :(
+    </p>
   </article>
+
   <article *ngIf="listTasks?.length > 0 && isAllDone() === -1">
-    <p>Nessa lista não tem nenhuma Task Aberta, somente concluídas!</p>
+    <p tabindex="0">
+      Nessa lista não tem nenhuma Task Aberta, somente concluídas!
+    </p>
   </article>
+
   <article *ngFor="let task of listTasks">
     <todo-tasks
       *ngIf="task.isDone === false"
@@ -22,6 +31,7 @@
       (editarTaskEmitter)="editarTask(task.id)"
     ></todo-tasks>
   </article>
+
   <article *ngIf="hasTasksDone() === true">
     <todo-tasks-done
       [listTasks]="listTasks"
@@ -29,9 +39,10 @@
       (excluirTaskEmitter)="excluirTask($event)"
     ></todo-tasks-done>
   </article>
+
   <div class="card border-secondary w-100 mt-3">
     <div class="card-body">
-      <p class="card-text text-center" (click)="addNewTask()">
+      <p tabindex="0" class="card-text text-center" (click)="addNewTask()">
         <fa-icon class="mr-1" [icon]="faPlusCircle"></fa-icon> Adicionar nova
         Task
       </p>
@@ -39,9 +50,13 @@
   </div>
 </section>
 
+<!-- Modal para criação de novas tasks
+TODO: retirar do html a criar com serviço -->
 <todo-modal-new-tasks
   [modalConfig]="modalConfig"
   [listId]="listId"
 ></todo-modal-new-tasks>
 
+<!-- Modal para edição de tasks
+TODO: retirar do html a criar com serviço -->
 <todo-modal-edit-tasks [modalConfig]="modalConfig"></todo-modal-edit-tasks>

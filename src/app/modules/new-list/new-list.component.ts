@@ -26,6 +26,7 @@ export class NewListComponent implements OnInit {
     });
   }
 
+  //Salva a nova lista no banco e redireciona posteriormente para a nova lista criada
   save() {
     this.list = this.buildList();
     this.listService.saveList(this.list).subscribe(
@@ -38,6 +39,7 @@ export class NewListComponent implements OnInit {
     );
   }
 
+  //Cria uma instância do Model List e pega os dados preenchidos no form
   private buildList() {
     const title = this.newListForm.get('title').value;
     const list = new List();

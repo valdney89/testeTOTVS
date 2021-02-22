@@ -1,26 +1,45 @@
 <nav id="sidebar" class="sidebar">
-  <div class="sidebar-content js-simplebar">
+  <div class="sidebar-content">
     <h4 class="sidebar-brand">
       <span class="align-middle mr-3">To Do List</span>
     </h4>
 
     <ul class="sidebar-nav">
-      <li class="sidebar-item"><a [routerLink]="['/home']">Home</a></li>
       <li class="sidebar-item">
-        <a>
-          <fa-icon class="mr-1" [icon]="faTasks"></fa-icon>
+        <a [routerLink]="['/home']" class="sidebar-link"
+          ><fa-icon class="mr-2" [icon]="faHome"></fa-icon> Home</a
+        >
+      </li>
+      <li class="sidebar-item">
+        <a
+          class="sidebar-link"
+          (click)="collapse.toggle()"
+          [attr.aria-expanded]="!isCollapsed"
+          aria-controls="sidebar"
+        >
+          <fa-icon class="mr-2" [icon]="faTasks"></fa-icon>
           <span class="align-middle">Minhas Listas</span>
-          <span class="badge badge-sidebar-primary">{{ qtdListItens }}</span>
+          <span class="ml-4 badge rounded-pill bg-light text-dark">{{
+            qtdListItens
+          }}</span>
         </a>
-        <ul>
-          <li class="sidebar-item" *ngFor="let item of listItens">
-            <a class="sidebar-link" [routerLink]="['/list/', item.id]">
-              {{ item.title }}
+        <ul #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+          <li class="sidebar-item">
+            <a
+              class="sidebar-link"
+              [routerLink]="['/list/add']"
+              (click)="collapse.toggle()"
+            >
+              <fa-icon class="mr-2" [icon]="faPlusCircle"></fa-icon> Novo
             </a>
           </li>
-          <li class="sidebar-item">
-            <a class="sidebar-link" [routerLink]="['/list/add']">
-              <fa-icon class="mr-1" [icon]="faPlusCircle"></fa-icon> Novo
+          <li class="sidebar-item" *ngFor="let item of listItens">
+            <a
+              class="sidebar-link"
+              [routerLink]="['/list/', item.id]"
+              (click)="collapse.toggle()"
+            >
+              {{ item.title }}
             </a>
           </li>
         </ul>

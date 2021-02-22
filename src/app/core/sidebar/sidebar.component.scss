@@ -1,0 +1,57 @@
+@import "../../../assets/scss/variables";
+
+.sidebar {
+  background: $color_500;
+  @media screen and (min-width: 768px) {
+    min-width: 260px;
+    max-width: 260px;
+  }
+}
+
+.sidebar-content {
+  position: sticky;
+  top: 0;
+  left: 0;
+  overflow: hidden scroll;
+  @media screen and (min-width: 768px) {
+    height: 100vh;
+  }
+}
+
+.sidebar-brand {
+  font-weight: 700;
+  font-size: 1.215rem;
+  padding: 1.15rem 1.5rem;
+  display: block;
+  text-align: center;
+  color: $color_200;
+  text-transform: uppercase;
+}
+
+.sidebar-nav {
+  padding-left: 0;
+  list-style: none;
+}
+
+.sidebar-item {
+  list-style: none;
+  & ul {
+    padding-bottom: 5rem;
+  }
+}
+
+.sidebar-link,
+a.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 0.625rem 1.625rem;
+  font-weight: 400;
+  transition: color 75ms ease-in-out;
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+  color: $color_100;
+  &:hover {
+    color: #fff;
+  }
+}

@@ -1,12 +1,5 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewChild,
-  Output,
-  EventEmitter,
-} from '@angular/core';
-import { NgbAccordion, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { faEllipsisV, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 import { Tasks } from './../tasks/model/tasks';
@@ -14,10 +7,9 @@ import { Tasks } from './../tasks/model/tasks';
 @Component({
   selector: 'todo-tasks-done',
   templateUrl: './tasks-done.component.html',
+  styleUrls: ['./tasks-done.component.scss'],
 })
 export class TasksDoneComponent implements OnInit {
-  @ViewChild('acc') accordion: NgbAccordion;
-
   @Input() listTasks: Tasks;
 
   @Output() voltarTaskEmitter = new EventEmitter();

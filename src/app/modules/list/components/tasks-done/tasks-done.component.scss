@@ -1,18 +1,17 @@
 @import "../../../../../assets/scss/variables";
 
+.card {
+  border-radius: 15px;
+  color: #444;
+  background-color: #f1f1f1;
+}
+
 #dropdownTasks {
-  color: $color_200;
+  color: #444;
   background-color: transparent;
   border: none;
   padding: 8px 16px;
   &::after {
     display: none;
   }
-}
-
-.card {
-  border-radius: 12px;
-  background-color: #fff;
-  color: $color_200;
-  box-shadow: 2px 2px 12px #4441a60f;
 }

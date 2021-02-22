@@ -8,6 +8,14 @@
         class="form-control"
         placeholder="Informe o título"
       />
+      <todo-inputError
+        error="A descrição é obrigatória."
+        *ngIf="
+          newTasksForm.get('title').invalid &&
+          (newTasksForm.get('title').touched || newTasksForm.get('title').dirty)
+        "
+      >
+      </todo-inputError>
     </div>
     <div class="form-group">
       <label for="description">Descrição</label>
@@ -17,16 +25,29 @@
         class="form-control"
         placeholder="Informe a descrição"
       />
+      <todo-inputError
+        error="A descrição é obrigatória."
+        *ngIf="
+          newTasksForm.get('description').invalid &&
+          (newTasksForm.get('description').touched ||
+            newTasksForm.get('description').dirty)
+        "
+      >
+      </todo-inputError>
     </div>
     <div class="float-right">
       <button
         type="button"
-        class="btn btn-outline-secondary"
+        class="btn btn-secundario-outline"
         (click)="closeModal()"
       >
         Sair
       </button>
-      <button type="submit" class="btn btn-outline-primary ml-2">
+      <button
+        type="submit"
+        class="btn btn-principal ml-2"
+        [disabled]="newTasksForm.invalid"
+      >
         Criar Task
       </button>
     </div>
