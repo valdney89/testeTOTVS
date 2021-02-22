@@ -1,27 +1,30 @@
-# Todolist
+# Todolist by valdney
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
+Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 11.0.5. Como objetivo para um desafio proposto pela TOTVS.
 
-## Development server
+## Rodando o projeto
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Após Clonar o projeto, execute `ng serve`. Navegue até `http: // localhost: 4200 /`. O aplicativo será recarregado automaticamente se você alterar qualquer um dos arquivos de origem.
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Execute `ng test` para executar os testes de unidade via [Karma](https://karma-runner.github.io).
 
 ## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Execute `ng e2e` para executar os testes de ponta a ponta via [Protractor](http://www.protractortest.org/).
 
-## Further help
+## Frameworks utilizados
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+-Bootstrap 4.6
+-NgBootstrap 9.0.2
+-FontAwsome 0.8.2
+-Json-server 0.16.3
+
+## Fake API Json Server
+
+Os dados do banco podem ser encontrados no arquivo db.json onde possuem os dados das Listas e Tarefas
+
+Para que a aplicação funcione é preciso instalar globalmente o json-server e usar o comando json-server --delay 500 db.json.
+
+A fake API estará disponível em http://localhost:3000.
