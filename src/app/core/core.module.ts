@@ -7,11 +7,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ListService } from './../modules/list/services/list.service';
+import { SidebarService } from './sidebar/services/sidebar.service';
 
 @NgModule({
   declarations: [FooterComponent, SidebarComponent],
   exports: [FooterComponent, SidebarComponent],
   imports: [CommonModule, RouterModule, FontAwesomeModule, NgbModule],
-  providers: [ListService],
+  providers: [ListService, SidebarService],
 })
 export class CoreModule {}

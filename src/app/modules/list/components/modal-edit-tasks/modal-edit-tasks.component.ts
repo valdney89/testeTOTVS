@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnDestroy } from '@angular/core';
 
 import { TasksService } from '../tasks/services/tasks.service';
 import { ModalService } from '../../../../shared/components/modal/service/modal.service';
@@ -12,7 +12,7 @@ import { Tasks } from '../tasks/model/tasks';
   selector: 'todo-modal-edit-tasks',
   templateUrl: './modal-edit-tasks.component.html',
 })
-export class ModalEditTasksComponent implements OnInit {
+export class ModalEditTasksComponent implements OnInit, OnDestroy {
   @ViewChild('modalEdit') private modalComponent: ModalComponent;
 
   @Input() modalConfig: ModalConfig;
@@ -43,12 +43,20 @@ export class ModalEditTasksComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.modalClickSubscription.unsubscribe();
+  }
+
   openModal() {
     return this.modalComponent.open();
   }
 
   closeModal() {
     return this.modalComponent.close();
+  }
+
+  dismissModal() {
+    return this.modalComponent.dismiss();
   }
 
   constroiForm() {
@@ -68,8 +76,14 @@ export class ModalEditTasksComponent implements OnInit {
     this.tasksService.updateTasks(this.task, this.task.id).subscribe(
       (sucess) => {
         console.log(sucess);
+        this.refreshTasks();
+        this.dismissModal();
       },
       (error) => console.log(error)
     );
+  }
+
+  private refreshTasks() {
+    this.tasksService.setRefreshTasks(true);
   }
 }

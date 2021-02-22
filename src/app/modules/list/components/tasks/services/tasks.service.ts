@@ -4,7 +4,7 @@ import {
   HttpHeaders,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
@@ -17,6 +17,10 @@ export class TasksService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
+
+  private refreshTasks: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
   constructor(private http: HttpClient) {}
 
@@ -62,5 +66,13 @@ export class TasksService {
     }
     console.log(errorMessage);
     return throwError(errorMessage);
+  }
+
+  public getRefreshTasks(): Observable<boolean> {
+    return this.refreshTasks.asObservable();
+  }
+
+  public setRefreshTasks(value: boolean): void {
+    this.refreshTasks.next(value);
   }
 }

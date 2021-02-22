@@ -39,7 +39,7 @@
       "title": "Finalizar Desafio Totvs",
       "description": "Até dia 22/02",
       "listId": "2",
-      "isDone": false,
+      "isDone": true,
       "id": 4
     },
     {
@@ -55,6 +55,27 @@
       "listId": "3",
       "isDone": false,
       "id": 6
+    },
+    {
+      "title": "Alertas",
+      "description": "Criar componente de alerta",
+      "listId": "2",
+      "isDone": false,
+      "id": 16
+    },
+    {
+      "title": "Modal Alerta",
+      "description": "Criar componente de modal alerta",
+      "listId": "2",
+      "isDone": false,
+      "id": 17
+    },
+    {
+      "title": "Dados Duplicados",
+      "description": "Evitar entrada de tarefas e listas duplicadas",
+      "listId": "2",
+      "isDone": false,
+      "id": 18
     }
   ]
 }

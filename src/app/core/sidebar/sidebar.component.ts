@@ -8,6 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { List } from './../../modules/list/model/list';
 import { ListService } from './../../modules/list/services/list.service';
+import { SidebarService } from './services/sidebar.service';
 
 @Component({
   selector: 'todo-sidebar',
@@ -20,15 +21,34 @@ export class SidebarComponent implements OnInit {
   faTasks = faTasks;
   faPlusCircle = faPlusCircle;
   faHome = faHome;
-  list$: Observable<any>;
+  screenWidth: number;
+
   public isCollapsed = true;
 
-  constructor(private listService: ListService) {}
+  constructor(
+    private listService: ListService,
+    private sidebarService: SidebarService
+  ) {}
 
   ngOnInit(): void {
     //obtem todas as listas do banco para popular menu
-    this.list$ = this.listService.getList();
-    this.list$.subscribe((sucess) => {
+    this.loadListItens();
+    this.sidebarService.getRefresh().subscribe((value: boolean) => {
+      if (value) {
+        this.loadListItens();
+      }
+    });
+    this.screenWidth = window.innerWidth;
+  }
+
+  closeAccordionOnMobile() {
+    if (this.screenWidth < 768) {
+      this.isCollapsed = true;
+    }
+  }
+
+  private loadListItens() {
+    this.listService.getList().subscribe((sucess) => {
       this.qtdListItens = sucess.length;
       this.listItens = sucess;
     });

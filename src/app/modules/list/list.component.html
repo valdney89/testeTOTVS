@@ -32,14 +32,6 @@
     ></todo-tasks>
   </article>
 
-  <article *ngIf="hasTasksDone() === true">
-    <todo-tasks-done
-      [listTasks]="listTasks"
-      (voltarTaskEmitter)="changeStatusTask($event)"
-      (excluirTaskEmitter)="excluirTask($event)"
-    ></todo-tasks-done>
-  </article>
-
   <div class="card border-secondary w-100 mt-3">
     <div class="card-body">
       <p tabindex="0" class="card-text text-center" (click)="addNewTask()">
@@ -48,6 +40,14 @@
       </p>
     </div>
   </div>
+
+  <article *ngIf="hasTasksDone() === true">
+    <todo-tasks-done
+      [listTasks]="listTasks"
+      (voltarTaskEmitter)="changeStatusTask($event)"
+      (excluirTaskEmitter)="excluirTask($event)"
+    ></todo-tasks-done>
+  </article>
 </section>
 
 <!-- Modal para criação de novas tasks
@@ -55,6 +55,7 @@ TODO: retirar do html a criar com serviço -->
 <todo-modal-new-tasks
   [modalConfig]="modalConfig"
   [listId]="listId"
+  (saveEmitter)="receiverSaveEmitter($event)"
 ></todo-modal-new-tasks>
 
 <!-- Modal para edição de tasks

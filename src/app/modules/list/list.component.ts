@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 import { faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Tasks } from './components/tasks/model/tasks';
@@ -9,6 +8,7 @@ import { List } from './model/list';
 import { ModalService } from 'src/app/shared/components/modal/service/modal.service';
 import { ModalConfig } from 'src/app/shared/components/modal/model/modal';
 import { ListService } from './services/list.service';
+import { SidebarService } from 'src/app/core/sidebar/services/sidebar.service';
 
 @Component({
   selector: 'todo-list',
@@ -22,22 +22,31 @@ export class ListComponent implements OnInit {
   listTasks: Tasks[];
   listId: number;
   modalConfig: ModalConfig;
-  inscricao: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private tasksService: TasksService,
     private listService: ListService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private sidebarService: SidebarService
   ) {}
 
   ngOnInit(): void {
-    //resolver criado para pegar as tarefas da lista antes de iniciar o componente
+    //Resolver criado para pegar as tarefas da lista antes de iniciar o componente
     this.activatedRoute.params.subscribe((params) => {
       this.listId = params.id;
       this.recebeListId(this.listId);
       this.listTasks = this.activatedRoute.snapshot.data['listTasks'];
+    });
+
+    //BehaviorSubject criado para atualizar lista de tarefas sempre que requisitado
+    this.tasksService.getRefreshTasks().subscribe((value: boolean) => {
+      if (value) {
+        this.tasksService.getTasksByListId(this.listId).subscribe((sucess) => {
+          this.listTasks = sucess;
+        });
+      }
     });
   }
 
@@ -57,6 +66,7 @@ export class ListComponent implements OnInit {
     return value;
   }
 
+  //configura modal
   public configuraModal(title: string) {
     this.modalConfig = new ModalConfig();
     this.modalConfig.modalTitle = title;
@@ -84,12 +94,12 @@ export class ListComponent implements OnInit {
     );
   }
 
-  //Exclui a tarefa selecionada
+  //Exclui a tarefa selecionada e atualiza a lista de tarefas da página
   //TODO: aparecer feedback para confirmar exclusão
   public excluirTask(event) {
     this.tasksService.removeTasks(event.id).subscribe(
       (res) => {
-        console.log(res);
+        this.refreshTasks();
       },
       (error) => {
         console.log(error);
@@ -97,18 +107,35 @@ export class ListComponent implements OnInit {
     );
   }
 
+  private refreshTasks() {
+    this.tasksService.setRefreshTasks(true);
+  }
+
   //Exclui a Lista selecionada e suas tarefas em cascata
   //TODO: aparecer feedback para confirmar exclusão
   public excluirList() {
     this.listService.removeList(this.listId).subscribe(
-      (res) => {
-        console.log(res);
+      () => {
+        if (this.listTasks) {
+          this.listTasks.forEach((element) => {
+            this.excluirTask(element.id);
+          });
+        }
+        this.refreshSideMenu();
         this.returnHome();
       },
       (error) => {
         console.log(error);
       }
     );
+  }
+
+  public receiverSaveEmitter(newTask) {
+    this.listTasks.push(newTask);
+  }
+
+  private refreshSideMenu() {
+    this.sidebarService.setRefresh(true);
   }
 
   /* Busca no banco a lista pelo ID informado,

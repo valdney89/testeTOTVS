@@ -12,7 +12,7 @@
   position: sticky;
   top: 0;
   left: 0;
-  overflow: hidden scroll;
+  overflow: auto;
   @media screen and (min-width: 768px) {
     height: 100vh;
   }

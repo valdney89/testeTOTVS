@@ -1,6 +1,14 @@
 import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import {
+  EventEmitter,
+  Component,
+  OnInit,
+  ViewChild,
+  Input,
+  OnDestroy,
+  Output,
+} from '@angular/core';
 
 import { TasksService } from './../tasks/services/tasks.service';
 import { ModalService } from './../../../../shared/components/modal/service/modal.service';
@@ -13,11 +21,13 @@ import { Tasks } from '../tasks/model/tasks';
   templateUrl: './modal-new-tasks.component.html',
   styleUrls: ['./modal-new-tasks.component.scss'],
 })
-export class ModalNewTasksComponent implements OnInit {
+export class ModalNewTasksComponent implements OnInit, OnDestroy {
   @ViewChild('modal') private modalComponent: ModalComponent;
 
   @Input() modalConfig: ModalConfig;
   @Input() listId: number;
+
+  @Output() saveEmitter = new EventEmitter();
 
   modalClickSubscription: Subscription;
   newTasksForm: FormGroup;
@@ -30,10 +40,14 @@ export class ModalNewTasksComponent implements OnInit {
   ) {
     this.modalClickSubscription = this.modalService.getModalClick().subscribe(
       () => {
+        this.newTasksForm.reset();
         this.openModal();
       },
       (error) => console.log(error)
     );
+  }
+  ngOnDestroy(): void {
+    this.modalClickSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -41,7 +55,7 @@ export class ModalNewTasksComponent implements OnInit {
       title: ['', Validators.required],
       description: ['', Validators.required],
     });
-    this.constroiTask();
+    this.buildTask();
   }
 
   openModal() {
@@ -52,7 +66,11 @@ export class ModalNewTasksComponent implements OnInit {
     return this.modalComponent.close();
   }
 
-  constroiTask() {
+  dismissModal() {
+    return this.modalComponent.dismiss();
+  }
+
+  buildTask() {
     this.task = new Tasks();
     this.task.title = this.newTasksForm.get('title').value;
     this.task.description = this.newTasksForm.get('description').value;
@@ -61,10 +79,11 @@ export class ModalNewTasksComponent implements OnInit {
   }
 
   save() {
-    this.constroiTask();
+    this.buildTask();
     this.tasksService.saveTasks(this.task).subscribe(
       (sucess) => {
-        console.log(sucess);
+        this.saveEmitter.emit(sucess);
+        this.dismissModal();
       },
       (error) => console.log(error)
     );

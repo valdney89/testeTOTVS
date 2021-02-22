@@ -8,9 +8,13 @@ body {
 main {
   display: flex;
   width: 100%;
-  min-height: 100vh;
   min-width: 0;
   flex-direction: column;
+  @media screen and (min-width: 768px) {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 100vh;
+  }
 }
 
 .site-wrapper {

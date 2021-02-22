@@ -1,6 +1,6 @@
 # Todolist by valdney
 
-Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 11.0.5. Como objetivo para um desafio proposto pela TOTVS.
+Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 11.0.5. Como um desafio proposto pela TOTVS.
 
 ## Rodando o projeto
 
@@ -16,10 +16,7 @@ Execute `ng e2e` para executar os testes de ponta a ponta via [Protractor](http:
 
 ## Frameworks utilizados
 
--Bootstrap 4.6
--NgBootstrap 9.0.2
--FontAwsome 0.8.2
--Json-server 0.16.3
+Bootstrap 4.6 / NgBootstrap 9.0.2 / FontAwsome 0.8.2 / Json-server 0.16.3
 
 ## Fake API Json Server
 
