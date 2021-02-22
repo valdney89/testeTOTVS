@@ -1,5 +1,4 @@
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 
@@ -12,7 +11,7 @@ import { Tasks } from '../tasks/model/tasks';
 @Component({
   selector: 'todo-modal-new-tasks',
   templateUrl: './modal-new-tasks.component.html',
-  styleUrls: ['./modal-new-tasks.component.css'],
+  styleUrls: ['./modal-new-tasks.component.scss'],
 })
 export class ModalNewTasksComponent implements OnInit {
   @ViewChild('modal') private modalComponent: ModalComponent;
@@ -29,11 +28,12 @@ export class ModalNewTasksComponent implements OnInit {
     private tasksService: TasksService,
     private formBuilder: FormBuilder
   ) {
-    this.modalClickSubscription = this.modalService
-      .getModalClick()
-      .subscribe(() => {
+    this.modalClickSubscription = this.modalService.getModalClick().subscribe(
+      () => {
         this.openModal();
-      });
+      },
+      (error) => console.log(error)
+    );
   }
 
   ngOnInit(): void {
@@ -58,15 +58,15 @@ export class ModalNewTasksComponent implements OnInit {
     this.task.description = this.newTasksForm.get('description').value;
     this.task.listId = this.listId;
     this.task.isDone = false;
-    console.log(this.task);
   }
 
   save() {
-    console.log(this.task);
     this.constroiTask();
-    console.log(this.task);
-    this.tasksService.saveTasks(this.task).subscribe((sucess) => {
-      console.log(sucess);
-    });
+    this.tasksService.saveTasks(this.task).subscribe(
+      (sucess) => {
+        console.log(sucess);
+      },
+      (error) => console.log(error)
+    );
   }
 }

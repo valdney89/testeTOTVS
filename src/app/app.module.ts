@@ -1,12 +1,14 @@
+import { HomeModule } from './modules/home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { NotFoundModule } from './modules/not-found/not-found.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { CoreModule } from './core/core.module';
 import { NewListModule } from './modules/new-list/new-list.module';
 import { ListModule } from './modules/list/list.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,8 +17,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     CoreModule,
     NewListModule,
+    NotFoundModule,
     ListModule,
-    NgbModule,
+    FontAwesomeModule,
+    HomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

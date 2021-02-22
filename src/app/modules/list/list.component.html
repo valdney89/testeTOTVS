@@ -1,27 +1,47 @@
-<div class="container">
-  <section id="list-tasks">
-    <h3 class="mb-5">Tasks</h3>
-    <article *ngFor="let task of listTasks">
-      <todo-tasks
-        [title]="task?.title"
-        [description]="task?.description"
-      ></todo-tasks>
-    </article>
-    <article *ngIf="!listTasks">
-      <p>Opa, você ainda não cadastrou nenhuma Task nessa lista :(</p>
-    </article>
-    <div class="card border-secondary w-100 mt-3">
-      <div class="card-body">
-        <p class="card-text text-center" (click)="addNewTask()">
-          <fa-icon class="mr-1" [icon]="faPlusCircle"></fa-icon> Adicionar nova
-          Task
-        </p>
-      </div>
+<section id="list-tasks" class="container">
+  <div class="d-flex flex-row justify-content-between align-items-center mb-5">
+    <h2>Lista: {{ list?.title }}</h2>
+    <button class="btn btn-outline-secondary" (click)="excluirList()">
+      <fa-icon class="mr-1" [icon]="faTrash"></fa-icon> Apagar Lista
+    </button>
+  </div>
+
+  <h3 class="mb-3">Tasks</h3>
+  <article *ngIf="listTasks?.length === 0">
+    <p>Opa, você ainda não cadastrou nenhuma Task nessa lista :(</p>
+  </article>
+  <article *ngIf="listTasks?.length > 0 && isAllDone() === -1">
+    <p>Nessa lista não tem nenhuma Task Aberta, somente concluídas!</p>
+  </article>
+  <article *ngFor="let task of listTasks">
+    <todo-tasks
+      *ngIf="task.isDone === false"
+      [task]="task"
+      (concluirTaskEmitter)="changeStatusTask($event)"
+      (excluirTaskEmitter)="excluirTask($event)"
+      (editarTaskEmitter)="editarTask(task.id)"
+    ></todo-tasks>
+  </article>
+  <article *ngIf="hasTasksDone() === true">
+    <todo-tasks-done
+      [listTasks]="listTasks"
+      (voltarTaskEmitter)="changeStatusTask($event)"
+      (excluirTaskEmitter)="excluirTask($event)"
+    ></todo-tasks-done>
+  </article>
+  <div class="card border-secondary w-100 mt-3">
+    <div class="card-body">
+      <p class="card-text text-center" (click)="addNewTask()">
+        <fa-icon class="mr-1" [icon]="faPlusCircle"></fa-icon> Adicionar nova
+        Task
+      </p>
     </div>
-  </section>
-</div>
+  </div>
+</section>
 
 <todo-modal-new-tasks
   [modalConfig]="modalConfig"
   [listId]="listId"
 ></todo-modal-new-tasks>
+
+<todo-modal-edit-tasks [modalConfig]="modalConfig"></todo-modal-edit-tasks>

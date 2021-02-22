@@ -44,6 +44,12 @@ export class TasksService {
       .pipe(retry(2), catchError(this.handleError));
   }
 
+  removeTasks(id: number) {
+    return this.http
+      .delete(`${API}/tasks/${id}`)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

@@ -12,7 +12,7 @@ import { ModalConfig } from './model/modal';
 @Component({
   selector: 'todo-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.css'],
+  styleUrls: ['./modal.component.scss'],
 })
 @Injectable()
 export class ModalComponent implements OnInit {

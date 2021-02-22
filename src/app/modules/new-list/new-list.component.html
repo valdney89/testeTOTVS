@@ -1,1 +1,30 @@
-<p>new-list works!</p>
+<section class="container">
+  <form [formGroup]="newListForm" (submit)="save()">
+    <legend>Nova Lista</legend>
+    <div class="mb-3">
+      <label for="title" class="form-label">Nome *</label>
+      <input
+        formControlName="title"
+        type="text"
+        id="title"
+        class="form-control"
+        placeholder="Informe o nome"
+      />
+      <todo-inputError
+        error="O nome é obrigatório"
+        *ngIf="
+          newListForm.get('title').invalid &&
+          (newListForm.get('title').touched || newListForm.get('title').dirty)
+        "
+      >
+      </todo-inputError>
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary float-right"
+      [disabled]="newListForm.invalid"
+    >
+      Adicionar Lista
+    </button>
+  </form>
+</section>

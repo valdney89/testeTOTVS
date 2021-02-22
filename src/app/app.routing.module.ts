@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
+
 import { NewListComponent } from './modules/new-list/new-list.component';
 import { ListComponent } from './modules/list/list.component';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
+import { HomeComponent } from './modules/home/home.component';
+import { TasksResolver } from './modules/list/guards/tasks-resolver.guard';
 
 const routes: Routes = [
   {
@@ -12,7 +15,10 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: AppComponent,
+    component: HomeComponent,
+    data: {
+      title: 'To Do List - Início',
+    },
   },
   {
     path: 'list/add',
@@ -27,6 +33,20 @@ const routes: Routes = [
     data: {
       title: 'Editar Lista',
     },
+    resolve: {
+      listTasks: TasksResolver,
+    },
+  },
+  {
+    path: 'not-found',
+    component: NotFoundComponent,
+    data: {
+      title: 'Página não encontrada',
+    },
+  },
+  {
+    path: '**',
+    redirectTo: 'not-found',
   },
 ];
 

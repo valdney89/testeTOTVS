@@ -40,6 +40,12 @@ export class ListService {
       .pipe(retry(2), catchError(this.handleError));
   }
 
+  removeList(id: number) {
+    return this.http
+      .delete(`${API}/lists/${id}`)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
